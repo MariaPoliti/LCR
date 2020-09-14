@@ -19,6 +19,5 @@ dependencies:
   - pip
   - python
   - scipy
-  - os
   - pip:
     - pyvisa
