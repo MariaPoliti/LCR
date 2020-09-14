@@ -1,0 +1,24 @@
+name: LCR
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ipython
+  - ipython_genutils
+  - ipywidgets
+  - jupyter
+  - jupyter_client
+  - jupyter_console
+  - jupyter_core
+  - matplotlib
+  - notebook
+  - numpy
+  - numpy-base
+  - pandas
+  - pandoc
+  - pip
+  - python
+  - scipy
+  - os
+  - pip:
+    - pyvisa
