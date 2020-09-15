@@ -21,10 +21,11 @@ def instrument_conection():
 
     """
     # Connect the instrument and ensure you can comunicate wiht it
-    rm = pyvisa.ResourceManager()
-    if len(rm.list_resources()) != 0:
+    rm = pyvisa.ResourceManager
+    inst = rm.list_resources()
+    if len(inst) != 0:
         print('The is/are \033[1m{}\033[0m insturment(s)' +
-              ' conencted to this device.'.format(len(rm.list_resources())))
+              ' conencted to this device.'.format(len(inst)))
 
         # If only one instrument is connected to the computer,
         # the argument can be replaced
