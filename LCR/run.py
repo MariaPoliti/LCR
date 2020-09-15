@@ -25,7 +25,7 @@ def instrument_conection():
     inst = rm.list_resources()
     if len(inst) != 0:
         print('The is/are \033[1m{}\033[0m insturment(s)' +
-              ' conencted to this device.'.format(len(inst)))
+              ' conencted to this device.'.format(len(inst)))  # Noqa: F523
 
         # If only one instrument is connected to the computer,
         # the argument can be replaced
