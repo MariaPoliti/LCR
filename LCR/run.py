@@ -4,7 +4,7 @@ import time
 from LCR import frequency
 
 
-def instrument_conection():
+def instrument_connection():
     """
     Function to make connection wiht the instrument and ensure that commands
     can be correctly delivered to it.
