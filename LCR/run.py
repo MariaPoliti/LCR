@@ -65,8 +65,8 @@ def measurement(my_instrument, function, frequencies, input_signal='voltage',
               String indicating to the instrument which measurement to collect
     frequencies: list
                variable containing the list of frequency to use in the
-               measurement. The list will be
-               converted into one within this function
+               measurement. The list will be converted into a stirng within
+               this function
     input_signal: str
                   Option of voltage or current
     aplitude: int or float
@@ -119,7 +119,9 @@ def measurement(my_instrument, function, frequencies, input_signal='voltage',
     # freqeuncies you want to scan over, the list page should be
     # automatically updated
     my_instrument.write(':DISP:PAGE LIST')
+    time.sleep(1)
     my_instrument.write(':FORM:DATA ASC')
+    time.sleep(1)
     my_instrument.write(':LIST:MODE SEQ')
     time.sleep(2)
 
@@ -127,19 +129,21 @@ def measurement(my_instrument, function, frequencies, input_signal='voltage',
     # if isinstance(type(frequencies), str):
     #     my_instrument.write('LIST:FREQ ', frequencies)
     # else:
-    frequencies = frequency.freq_str(frequencies)
-    my_instrument.write('LIST:FREQ ', frequencies)
+    freq = frequency.freq_str(frequencies)
+    my_instrument.write('LIST:FREQ ', freq)
 
     time.sleep(2)
 
     # Set the source of the memory to external.
     my_instrument.write(':MMEM EXT')
+    time.sleep(2)
 
     # We are gonna use the memory buffer as I am going to independently
     # save the data into a single file instead of having the instrument
     # do that for me. Giving dimensions to the buffer memory ensures
     # that only the data collected is going to be save.
     my_instrument.write(':MEM:DIM DBUF, ', str(len(frequencies)))
+    time.sleep(1)
 
     # Initialize the memory log for the given frequency list indicated above
     my_instrument.write(':MEM:FILL DBUF')
@@ -158,7 +162,7 @@ def measurement(my_instrument, function, frequencies, input_signal='voltage',
     my_instrument.write(':DISP:PAGE MEAS')
 
     return output_signals
-
+    
 
 def cancel_measurement(my_instrument):
     """
