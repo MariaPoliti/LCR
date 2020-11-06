@@ -21,7 +21,7 @@ def instrument_connection():
 
     """
     # Connect the instrument and ensure you can comunicate wiht it
-    rm = pyvisa.ResourceManager
+    rm = pyvisa.ResourceManager()
     inst = rm.list_resources()
     if len(inst) != 0:
         print('The is/are \033[1m{}\033[0m insturment(s)' +
