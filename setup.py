@@ -4,6 +4,7 @@ import setuptools
 from setuptools import setup
 
 setup(name='LCR',
+      version="0.1",
       description='package to operate an Agilent/Keysight A4980E LCR meter \
                     using python',
       description_content_type='text/markdown; \
