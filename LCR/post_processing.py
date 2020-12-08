@@ -47,7 +47,7 @@ def extract_output_signals(EIS_measurements):
         if EIS_measurements[i] >= 1e30:
             overload.append(i)
     overload_index = [int(overload[i]/4) for i in range(len(overload))
-               if i % 2 == 0]
+                      if i % 2 == 0]
 
     # Next,remove the empty entries & overload entries
     # [ 0.0 status and bin no. of every measurement.]
