@@ -162,7 +162,7 @@ def measurement(my_instrument, function, frequencies, input_signal='voltage',
     my_instrument.write(':DISP:PAGE MEAS')
 
     return output_signals
-    
+
 
 def cancel_measurement(my_instrument):
     """

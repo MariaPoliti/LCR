@@ -39,8 +39,20 @@ def extract_output_signals(EIS_measurements):
     Entry 3&4: 0.0
 
     """
-    # remove the empty entries [ 0.0 status and bin no. of every measurement.]
-    EIS_measurements = [item for item in EIS_measurements if item != 0.0]
+    # Remove overaload points to allow for the data to be saved
+    # First we need to keep track of the index of the frequency
+    # the overaload is happening at
+    overload = []
+    for i in range(len(EIS_measurements)):
+        if EIS_measurements[i] >= 1e30:
+            overload.append(i)
+    overload_index = [int(overload[i]/4) for i in range(len(overload))
+               if i % 2 == 0]
+
+    # Next,remove the empty entries & overload entries
+    # [ 0.0 status and bin no. of every measurement.]
+    EIS_measurements = [item for item in EIS_measurements if item not in [
+        9.9e+37, 9.9e+37, 1.0, 0.0]]
 
     # Extract the primary output
     Z_magnitude = [EIS_measurements[i] for i in range(len(EIS_measurements))
@@ -50,7 +62,7 @@ def extract_output_signals(EIS_measurements):
     Z_phase = [EIS_measurements[i] for i in range(len(EIS_measurements))
                if i % 2 != 0]
 
-    return Z_magnitude, Z_phase
+    return Z_magnitude, Z_phase, overload_index
 
 
 def gen_filename(sample, dist, temp):
@@ -111,7 +123,11 @@ def write_file(freq, EIS_measurements, filename, save_location='./',
     if not os.path.exists(save_location):
         os.makedirs(save_location)
 
-    magnitude, phase = extract_output_signals(EIS_measurements)
+    magnitude, phase, index = extract_output_signals(EIS_measurements)
+
+    if index != []:
+        for i in index:
+            freq.remove(freq[i])
     to_file = {'frequency': freq, 'magnitude': magnitude, 'phase': phase}
     df_to_file = pd.DataFrame.from_dict(to_file)
 
